@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 setwd("D:/GIT/R-code-for-multivariate-analysis")
 source("biostats.R")
 install.packages("simba")
@@ -12,3 +13,19 @@ library("cluster")
 envdata<-read.csv('MAHA_environment.csv', header = TRUE, row.names = 1)
 speabu <- read.csv('MAHA_speciesabu.csv', header=TRUE, row.names = 1)
 spetrait<-read.csv('MAHA_speciestrait.csv', header=TRUE, row.names=1)
+=======
+setwd("D:/GIT/R-code-for-multivariate-analysis")
+source("biostats.R")
+install.packages("simba")
+install.packages("vegan")
+install.packages("ecodist")
+install.packages("cluster")
+library("simba")
+library("vegan")
+library("ecodist")
+library("cluster")
+
+envdata<-read.csv('MAHA_environment.csv', header = TRUE, row.names = 1)
+speabu <- read.csv('MAHA_speciesabu.csv', header=TRUE, row.names = 1)
+spetrait<-read.csv('MAHA_speciestrait.csv', header=TRUE, row.names=1)
+>>>>>>> 86b915e4447d6661a7a0687d03658c40a681fb27
