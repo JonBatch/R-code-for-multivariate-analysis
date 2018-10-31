@@ -25,3 +25,20 @@ str(testdata)
 testdata<-drop.var(spedata,max.po = 95)
 testdata<-drop.var(spedata,min.cv = 5)
 
+ecdf.plots(spedata)
+hist.plots(spedata)
+box.plots(spedata)
+qqnorm.plots(spedata)
+uv.plots(spedata)
+
+
+data.trans(spedata,method='log')
+data.trans(spedata,method = 'power',exp = .5)
+data.trans(spedata,method='power',exp = 0)
+data.trans(spedata,method = 'asin')
+
+
+data.stand(spedata,method='total', margin = 'row')
+
+uv.outliers(envdata,id='Sinuosity:BasinAre',var='Elev',sd.limit = 1)
+mv.outliers(envdata,method='euclidean', sd.limit = 1)
