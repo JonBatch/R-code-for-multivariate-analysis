@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-
 all.subsets.gam <-
 function(y,x.smooth,x.parametric=NULL,family=binomial(link=logit),
 	maxp=5,select='all',delta=7,rank=10,...){
@@ -8668,4 +8666,4 @@ curve(hweibull(x,shape,mri),from=0,to=5*scale,
   main='Hazard Function')
 	mtext(paste('(shape=',shape,', mri=',mri,')',sep=''),side=3,col='red')
 }
->>>>>>> 86b915e4447d6661a7a0687d03658c40a681fb27
+
