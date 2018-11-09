@@ -1,1 +1,3 @@
-T4
+T4 resve testInheritedMethods(
+  
+)
