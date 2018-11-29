@@ -4331,6 +4331,7 @@ curve(hweibull(x,shape,mri),from=0,to=5*scale,
   main='Hazard Function')
 	mtext(paste('(shape=',shape,', mri=',mri,')',sep=''),side=3,col='red')
 }
+<<<<<<< HEAD
 =======
 
 all.subsets.gam <-
@@ -8667,3 +8668,5 @@ curve(hweibull(x,shape,mri),from=0,to=5*scale,
 	mtext(paste('(shape=',shape,', mri=',mri,')',sep=''),side=3,col='red')
 }
 
+=======
+>>>>>>> 9ce3cfbf30ca5270de008ec7167354c896d96b08
