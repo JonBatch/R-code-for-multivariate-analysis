@@ -159,7 +159,7 @@ ordiplot(DepthNMDS, choices = c(1,2), display = "sites")
 plot(vec.D, p.max = 0.01, col = "blue")
 ordiplot(DepthNMDSub, choices = c(1,2), display = "sites")
 plot(vec.Dsub, p.max = 0.01, col = "blue")
-
+DepthNMDSub$points
 #funtion to plot points and elipses
 NMDS = data.frame(MDS1 = DepthNMDSub$points[,1], MDS2 = DepthNMDSub$points[,2],group=Squirl_groups$`GLSA RANK`)
 ord<-ordiellipse(DepthNMDSub, Squirl_groups$`GLSA RANK`, display = "sites", 
