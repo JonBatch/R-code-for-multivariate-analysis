@@ -54,6 +54,8 @@ DepthSub <- PlotDepth[,c(54:63)]
 #NMDS on Subset and switching from gowers to Euclidian
 DepthNMDSub<-metaMDS(DepthSub, distance = "euc", k=2, autotransform = FALSE, trymax = 200)
 plot(DepthNMDSub)
+nmds.scree(DepthSub,distance = "euc",k=4, autotransform = FALSE, trymax = 30)
+nmds.monte(DepthSub,distance = "euc", k=3, autotransform = FALSE, trymax = 20)
 Dpoints<-DepthNMDSub$points
 
 #funtion to plot points and elipses
@@ -81,7 +83,7 @@ DepthNMDSub$points
 BoxDepth<-cbind(DepthNMDSub$points,Groups)
 o <- ordered(BoxDepth$names, levels = c("Bonanza", "Chintiminy", "Three", "Wildcat", "Erikson", "Easy", "Bull", "Farmer", "Buzzard", "Schooner", "Beehave", "Savage", "Trail", "East", "Potnu", "Ferngully"))
 gr <- ordered(BoxDepth$GLSA.RANK, levels = c("LOW", "MID", "HIGH", "VHIGH"))
-nr<-  ordered(BoxDepth$NECI.RANK, levels = c("LOW", "MID", "HIGH", "VHIGH"))
+nr<-  ordered(BoxDepth$NECI.RANK, levels = c("NONE","LOW", "MID", "HIGH"))
 boxplot(BoxDepth$MDS1~gr)
 boxplot(BoxDepth$MDS1~nr)
 plot(PlotDepth$D45, Groups$GLSA)
@@ -142,7 +144,7 @@ plot(OpenNMDSub$points[,1], Groups$NECI)
 plot(OpenNMDSub$points[,1], Groups$NEFU)
 
 
-###############PROCRUSTIES###################
+###############PROCRUSTIES (not used)###################
 protest(OpenNMDS,DepthNMDS)
 crust<-procrustes(OpenNMDS,DepthNMDS)
 plot(crust,kind=1,ar.col="red",len=0.2)
