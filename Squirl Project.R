@@ -8,8 +8,8 @@ library('dplyr')
 library('FactoMineR')
 library('factoextra')
 library('cluster')
-library(readr)
-source('E:/R-code-for-multivariate-analysis/biostats.R', encoding = 'UTF-8')
+library('readr')
+source('biostats.R', encoding = 'UTF-8')
 
 
 ########Coralation between trapping years##########
@@ -83,10 +83,11 @@ DepthNMDSub$points
 BoxDepth<-cbind(DepthNMDSub$points,Groups)
 o <- ordered(BoxDepth$names, levels = c("Bonanza", "Chintiminy", "Three", "Wildcat", "Erikson", "Easy", "Bull", "Farmer", "Buzzard", "Schooner", "Beehave", "Savage", "Trail", "East", "Potnu", "Ferngully"))
 gr <- ordered(BoxDepth$GLSA.RANK, levels = c("LOW", "MID", "HIGH", "VHIGH"))
-nr<-  ordered(BoxDepth$NECI.RANK, levels = c("NONE","LOW", "MID", "HIGH"))
+ncr<-  ordered(BoxDepth$NECI.RANK, levels = c("NONE","LOW", "MID", "HIGH"))
+nfr<-  ordered(BoxDepth$NEFU.RANK, levels = c("NONE","LOW", "MID", "HIGH"))
 boxplot(BoxDepth$MDS1~gr)
-boxplot(BoxDepth$MDS1~nr)
-plot(PlotDepth$D45, Groups$GLSA)
+boxplot(BoxDepth$MDS1~ncr)
+boxplot(BoxDepth$MDS1~nfr)
 plot(DepthNMDSub$points[,1], Groups$GLSA)
 plot(DepthNMDSub$points[,1], Groups$NECI)
 plot(DepthNMDSub$points[,1], Groups$NEFU)
@@ -109,6 +110,9 @@ plot(vec.O, p.max = 0.01, col = "blue")
 OpenSub <- PlotOpen[,c(54:63)]
 #NMDS on Subset and switching from gowers to Euclidian
 OpenNMDSub<-metaMDS(OpenSub, distance = "euc", k=2, autotransform = FALSE, trymax = 200)
+nmds.scree(OpenSub,distance = "euc",k=4, autotransform = FALSE, trymax = 30)
+nmds.monte(OpenSub,distance = "euc", k=3, autotransform = FALSE, trymax = 20)
+
 
 #funtion to plot points and elipses
 NMDS = data.frame(MDS1 = OpenNMDSub$points[,1], MDS2 = OpenNMDSub$points[,2],group = Groups$'GLSA.RANK')
@@ -135,7 +139,7 @@ OpenNMDSub$points
 BoxOpen<-cbind(OpenNMDSub$points,Groups)
 o <- ordered(BoxOpen$names, levels = c("Bonanza", "Chintiminy", "Three", "Wildcat", "Erikson", "Easy", "Bull", "Farmer", "Buzzard", "Schooner", "Beehave", "Savage", "Trail", "East", "Potnu", "Ferngully"))
 gr <- ordered(BoxOpen$GLSA.RANK, levels = c("LOW", "MID", "HIGH", "VHIGH"))
-nr<-  ordered(BoxOpen$NECI.RANK, levels = c("LOW", "MID", "HIGH", "VHIGH"))
+nr<-  ordered(BoxOpen$NECI.RANK, levels = c("NONE","LOW", "MID", "HIGH"))
 boxplot(BoxOpen$MDS1~gr)
 boxplot(BoxOpen$MDS1~nr)
 plot(PlotOpen$D45, Groups$GLSA)
