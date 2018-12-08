@@ -38,6 +38,7 @@ Odist<-daisy(PlotOpen,'gower')
 
   
 DepthNMDS<-metaMDS(Ddist, k=2, autotransform = FALSE, trymax = 200)
+?metaMDS
 DepthNMDS
 nmds.scree(Ddist,k=10, autotransform = FALSE, trymax = 30)
 nmds.monte(Ddist, k=3, autotransform = FALSE, trymax = 20)
@@ -52,11 +53,13 @@ plot(vec.D, p.max = 0.01, col = "blue")
 #subset for D38-D47 
 DepthSub <- PlotDepth[,c(54:63)]
 #NMDS on Subset and switching from gowers to Euclidian
-DepthNMDSub<-metaMDS(DepthSub, distance = "euc", k=2, autotransform = FALSE, trymax = 200)
+DepthNMDSub<-metaMDS(DepthSub, distance = "euc", k=2, autotransform = FALSE, trymax = 300)
+DepthNMDSub
 plot(DepthNMDSub)
 nmds.scree(DepthSub,distance = "euc",k=4, autotransform = FALSE, trymax = 30)
-nmds.monte(DepthSub,distance = "euc", k=3, autotransform = FALSE, trymax = 20)
-Dpoints<-DepthNMDSub$points
+nmds.monte(DepthSub,distance = "euc", k=2, autotransform = FALSE, trymax = 20)
+
+Outliers<-read.csv('DepthSubApend.csv', header = TRUE, row.names = 1)
 
 #funtion to plot points and elipses
 NMDS = data.frame(MDS1 = DepthNMDSub$points[,1], MDS2 = DepthNMDSub$points[,2],group = Groups$'GLSA.RANK')
@@ -89,9 +92,11 @@ boxplot(BoxDepth$MDS1~gr)
 boxplot(BoxDepth$MDS1~ncr)
 boxplot(BoxDepth$MDS1~nfr)
 plot(DepthNMDSub$points[,1], Groups$GLSA)
+plot(DepthSub[,5], Groups$GLSA)
+plot(Outliers[,5], Outliers$GLSA)
 plot(DepthNMDSub$points[,1], Groups$NECI)
 plot(DepthNMDSub$points[,1], Groups$NEFU)
-
+DepthNMDSub$points
 ################# OPEN NMDS #################
 
 OpenNMDS<-metaMDS(Odist, k=2, autotransform = FALSE, trymax = 200)
@@ -109,9 +114,10 @@ plot(vec.O, p.max = 0.01, col = "blue")
 #subset for O38-O47
 OpenSub <- PlotOpen[,c(54:63)]
 #NMDS on Subset and switching from gowers to Euclidian
-OpenNMDSub<-metaMDS(OpenSub, distance = "euc", k=2, autotransform = FALSE, trymax = 200)
+OpenNMDSub<-metaMDS(OpenSub, distance = "euc", k=2, autotransform = FALSE, trymax = 300)
+OpenNMDSub
 nmds.scree(OpenSub,distance = "euc",k=4, autotransform = FALSE, trymax = 30)
-nmds.monte(OpenSub,distance = "euc", k=3, autotransform = FALSE, trymax = 20)
+nmds.monte(OpenSub,distance = "euc", k=2, autotransform = FALSE, trymax = 20)
 
 
 #funtion to plot points and elipses
@@ -176,6 +182,8 @@ se.man
 ?vegdist
 Opendist<-vegdist(OpenSub,"euc")
 Depthdist<-vegdist(DepthSub,"euc")
+Outlierdist<-vegdist(Outliers[,1:10],"euc")
+
 
 O.anosim<-anosim(Opendist,Groups[,2])
 summary(O.anosim)
@@ -185,6 +193,9 @@ plot.anosim(O.anosim)
 D.anosim<-anosim(Depthdist,Groups[,2])
 summary(D.anosim)
 plot.anosim(D.anosim)
+
+Out.anosim<-anosim(Outlierdist,Outliers[,12])
+summary(Out.anosim)
 
 
 #####Open Anosim#########
@@ -273,3 +284,13 @@ newdata$GLSA.RANK<-factor(newdata$GLSA.RANK)
 DepthDD<-vegdist(newdata[,1:10],"euc")
 OO.anosim<-anosim(DepthDD,newdata$GLSA.RANK)
 summary(OO.anosim)
+
+############# outlier anosim
+
+
+newdata<-Outliers[which(Outliers$GLSA.RANK=='VHIGH' | Outliers$GLSA.RANK=='LOW'),]
+newdata$GLSA.RANK<-factor(newdata$GLSA.RANK)
+DepthDD<-vegdist(newdata[,1:10],"euc")
+OO.anosim<-anosim(DepthDD,newdata$GLSA.RANK)
+summary(OO.anosim)
+
